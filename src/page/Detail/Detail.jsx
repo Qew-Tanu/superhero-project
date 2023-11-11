@@ -1,0 +1,131 @@
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { NavbarWeb } from "../../Component/Navbar/navbar";
+import { callDetail } from "../../Service/datacall";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import ReactLoading from "react-loading";
+import { FreeMode, Pagination } from 'swiper/modules';
+import { Smallswiper } from "../../Component/smallswiper/smallswiper";
+
+
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+
+
+
+
+
+
+const Detail = () => {
+    // const { id } = useParams()
+    const { typeid } = useParams()
+    // console.log(typeid);
+    const test = typeid.split('-')
+    // console.log(test);
+    const type = test[0]
+    const id = test[1]
+
+    const [detail, setDetail] = useState({})
+    const [comics, setComics] = useState()
+    const [hero, setHero] = useState()
+    const [events, setEvents] = useState()
+    const [datatest, setDatatest] = useState()
+
+
+    useEffect(() => {
+        // console.log((localStorage.getItem(`${typeid}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length !== 0));
+        if (localStorage.getItem(`${typeid}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length !== 0) {
+            const dataInID = (JSON.parse(localStorage.getItem(`${typeid}`)))
+            setDatatest(dataInID)
+        } else {
+            callDetail({ detail, setDetail, hero, setHero, comics, setComics, events, setEvents, datatest, setDatatest, type, id })
+        }
+    }, [])
+
+
+    useEffect(() => {
+        // console.log("events", events);
+        // console.log("hero", hero);
+        // console.log("comics", comics);
+        // console.log("detail", detail);
+        console.log('datatest', datatest);
+        if (datatest) {
+            setDetail(datatest.detail)
+            setComics(datatest.comics)
+            setHero(datatest.hero)
+            setEvents(datatest.events)
+        }
+
+        if ((localStorage.getItem(`${typeid}`) === null || Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length === 0) && datatest) {
+            localStorage.setItem(`${typeid}`, JSON.stringify(datatest));
+        }
+        // localStorage.setItem(`${typeid}`, JSON.stringify(datatest));
+
+        // }
+        console.log(Boolean(datatest))
+
+    }, [datatest])
+
+
+
+
+
+    return (
+        <div className=' max-w-[1400px] mx-auto'>
+            <NavbarWeb />
+            <div className="flex justify-center">
+                <div className="flex flex-col justify-center bg-[#b4b4b4] rounded-[30px] p-5 w-[80%] gap-10">
+                    {!(datatest) && (<div className="h-[300px] sm:h-[600px] flex justify-center items-center">
+                        <ReactLoading type="spinningBubbles" color="#fff" height={'30%'} width={'30%'} />
+                    </div>
+                    )}
+                    {detail.data && (<div className="flex justify-center flex-col gap-5">
+                        <div className="flex justify-center">
+                            <img src={`${detail.data.thumbnail.path}.${detail.data.thumbnail.extension}`} alt="" />
+                        </div>
+                        <div className="text-[0.6em] sm:text-[1em] xl:text-[1.5em]">
+                            {detail.data.title}
+                        </div>
+                        <div className="text-[0.5em] sm:text-[0.9em] xl:text-[1.3em]">
+                            {detail.data.description}
+                        </div>
+                    </div>)}
+
+                    {(hero && hero.length > 0) && (
+
+                        <div className="w-full">
+                            <div className="flex justify-start text-[0.6em] sm:text-[1em] xl:text-[1.5em]">
+                                <h1>Character in this {type}</h1>
+                            </div>
+                            <Smallswiper item={hero} type='characters' />
+                        </div>
+                    )}
+                    {(comics && comics.length > 0) && (
+                        <div className="w-full">
+                            <div className="flex justify-start text-[0.6em] sm:text-[1em] xl:text-[1.5em]">
+                                <h1>Comic in this {type}</h1>
+                            </div>
+                            <Smallswiper item={comics} type='comics' />
+                        </div>
+                    )}
+                    {(events && events.length > 0) && (
+                        <div className="w-full">
+                            <div className="flex justify-start text-[0.6em] sm:text-[1em] xl:text-[1.5em]">
+                                <h1>Event in this {type}</h1>
+                            </div>
+                            <Smallswiper item={events} type='events' />
+                        </div>
+                    )}
+                </div>
+            </div>
+
+        </div >
+
+    )
+}
+
+export default Detail
+

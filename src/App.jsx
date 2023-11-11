@@ -4,8 +4,7 @@ import Homepage from './page/home';
 import EventsListpage from './page/Event';
 import ComicsListpage from './page/comic/comic';
 import CharacterListpage from './page/character/character';
-
-
+import Detail from './page/Detail/Detail';
 
 
 
@@ -30,8 +29,8 @@ function App() {
       element: <CharacterListpage />,
     },
     {
-      path: "/:type/:id",
-      element: <CharacterListpage />,
+      path: "/:typeid",
+      element: <Detail />,
     },
   ]);
 

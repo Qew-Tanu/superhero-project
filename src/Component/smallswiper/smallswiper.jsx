@@ -7,24 +7,23 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 // import '../../styles.css';
-import './swiper.css'
+// import './swiper.css'
+import './smallswiper.css'
 
 
 import { FreeMode, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
-
-
-export const SwiperItem = (props) => {
-    // console.log(props);
+export const Smallswiper = (props) => {
+    console.log(props.item);
     return (
-        <div className='h-[300px] lg:h-[400px]'>
-            <div className='h-[100%] p-[10px]'>
+        <div className='h-[200px] lg:h-[300px]'>
+            <div className='h-[100%] p-[10px] w-full'>
                 <Swiper
-                    width='200'
+                    width='120'
                     breakpoints={{
                         1024: {
-                            width: '300',
+                            width: '200',
                         },
                     }}
                     spaceBetween='10'
@@ -36,13 +35,13 @@ export const SwiperItem = (props) => {
                     modules={[FreeMode, Pagination]}
                     className="mySwiper h-full"
                 >
-                    {props.item && props.item.map((item, index) => {
+                    {props.item.map((item, index) => {
                         const text = `${props.type}-${item.id}`
                         return (
-                            <SwiperSlide key={index} className=' h-[calc(100%-30px)] bg-[#7a7a7acc] rounded-[30px]'>
-                                <Link to={`/${text}`} className='flex flex-col justify-between h-full p-1 sm:p-3 text-[0.6rem] sm:text-[0.75rem] lg:text-[1rem] text-white '>
-                                    <div className='flex justify-center overflow-hidden h-[80%] rounded-[30px]'>
-                                        <img className=' w-[auto] max-w-none ' src={item.thumbnail.path + "." + item.thumbnail.extension} alt="" />
+                            <SwiperSlide key={index} className=' h-[calc(100%-30px)] bg-[#7a7a7acc] rounded-[15px] lg:rounded-[30px]'>
+                                <Link reloadDocument to={`/${text}`} className='flex flex-col justify-between h-full p-1 sm:p-3 text-[0.6rem] sm:text-[0.75rem] lg:text-[1rem] text-white '>
+                                    <div className='flex justify-center overflow-hidden h-[80%] rounded-[15px] lg:rounded-[30px]'>
+                                        <img className=' w-[auto] max-w-none rounded-[15px] lg:rounded-[30px] ' src={item.thumbnail.path + "." + item.thumbnail.extension} alt="" />
                                     </div>
                                     <div className=' overflow-hidden'>{item.title || item.name}</div>
                                 </Link>
@@ -53,12 +52,8 @@ export const SwiperItem = (props) => {
                     })}
                 </Swiper>
             </div>
-
         </div >
     )
 }
 
 
-//max-h-[120px] sm:max-h-[200px] w-auto
-
-//h-[100%] sm:h-[90%]
