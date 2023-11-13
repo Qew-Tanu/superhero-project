@@ -203,3 +203,87 @@ export const callDetail = async (props) => {
 
 }
 
+
+export const callEventListadd = async (props) => {
+    // console.log(props);
+    const test = ((props.limit)) ? await getEventList.getEvent(props.limit, props.offset) : await getEventList.getEvent()
+
+    props.setDataadd({
+        data: [],
+        loading: true,
+        error: null
+    })
+    if (test.status === 200) {
+        // console.log(test);
+        props.setDataadd({
+            data: test.data.data.results,
+            loading: true,
+            error: null
+        })
+        // return props.event
+    } else {
+        props.setDataadd({
+            data: [],
+            loading: true,
+            error: test
+        })
+        // return props.event
+    }
+
+}
+
+export const callComicListAdd = async (props) => {
+    const test = props.limit ? await getComicList.getComic(props.limit, props.offset) : await getComicList.getComic()
+    props.setDataadd({
+        data: [],
+        loading: true,
+        error: null
+    })
+    if (test.status === 200) {
+        // console.log(test);
+        props.setDataadd({
+            data: test.data.data.results,
+            loading: true,
+            error: null
+        })
+    } else {
+        props.setDataadd({
+            data: [],
+            loading: true,
+            error: test
+        })
+    }
+
+}
+
+export const callHeroListAdd = async (props) => {
+    // console.log("props", props);
+    // console.log("props222", props.eventsid);
+
+    // console.log((props.limit || props.eventsid));
+    const test = (props.eventsid) ? await getHeroList.getHero(props.limit, props.offset, props.eventsid) :
+        (props.limit) ? await getHeroList.getHero(props.limit, props.offset, props.eventsid = null) : await getHeroList.getHero()
+    // console.log("test", test);
+    props.setDataadd({
+        data: [],
+        loading: true,
+        error: null
+    })
+    if (test.status === 200) {
+        // console.log(test);
+        props.setDataadd({
+            data: test.data.data.results,
+            loading: true,
+            error: null
+        })
+    } else {
+        props.setDataadd({
+            data: [],
+            loading: true,
+            error: test
+        })
+    }
+
+}
+
+
