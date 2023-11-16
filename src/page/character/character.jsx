@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { NavbarWeb } from '../../Component/Navbar/navbar'
-import { CardList } from '../../Component/Cardlist/CardList'
+import { NavbarWeb } from '../../Components/NavBar/navbar'
+import { CardList } from '../../Components/Cardlist/CardList'
 import { callHeroList, callHeroListAdd } from '../../Service/datacall'
 
 const CharacterListpage = () => {
@@ -109,7 +109,6 @@ const CharacterListpage = () => {
 
     return (
         <div className=' max-w-[1400px] mx-auto'>
-            <NavbarWeb />
             <div className=' text-white flex justify-start '>
                 <h1 className='p-5 text-[0.6em] sm:text-[1em] xl:text-[1.5em]'>Character</h1>
             </div>

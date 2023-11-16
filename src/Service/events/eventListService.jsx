@@ -1,14 +1,14 @@
-
 import axios from 'axios'
 import { privatekey, publickey } from '../../utility/token';
-import { MD5 } from 'crypto-js';
+import md5 from 'md5';
+
 
 
 export const getEventList = {
     getEvent: async (limit = 20, offset = 0) => {
         var ts = new Date().getTime();
         var stringToHash = ts + privatekey + publickey;
-        var hash = MD5(stringToHash);
+        var hash = md5(stringToHash);
 
         var url = "http://gateway.marvel.com/v1/public/events";
         try {

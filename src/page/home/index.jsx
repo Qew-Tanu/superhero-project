@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getComicList } from '../../Service/comic/comicListService'
-import { NavbarWeb } from '../../Component/Navbar/navbar'
-import { SwiperItem } from '../../Component/Swiper/swiper'
-import { getEventList } from '../../Service/events/eventListService'
-import { getHeroList } from '../../Service/hero/heroListService'
+import { SwiperItem } from '../../Components/Swiper/swiper'
 import { callComicList, callEventList, callHeroList } from '../../Service/datacall'
 import ReactLoading from "react-loading";
+import { NavbarWeb } from '../../Components/NavBar/navbar'
 
 
 const Homepage = () => {
@@ -15,29 +12,29 @@ const Homepage = () => {
 
     useEffect(() => {
         // var itemTest = JSON.parse(localStorage.getItem("events"));
-        console.log(localStorage.getItem("comics") !== null);
+        // console.log(localStorage.getItem("comics") !== null);
 
         if (localStorage.getItem("events") !== null && Object.keys(JSON.parse(localStorage.getItem("events"))).length !== 0) {
             setEvents(JSON.parse(localStorage.getItem("events")))
-            console.log('no call data');
+            // console.log('no call data');
         } else {
             callEventList({ events, setEvents })
-            console.log('call data');
+            // console.log('call data');
         }
         // callEventList({ events, setEvents })
         if (localStorage.getItem("comics") !== null && Object.keys(JSON.parse(localStorage.getItem("comics"))).length !== 0) {
             setComics(JSON.parse(localStorage.getItem("comics")))
-            console.log('no call data');
+            // console.log('no call data');
         } else {
             callComicList({ comics, setComics })
-            console.log('call data');
+            // console.log('call data');
         }
         if (localStorage.getItem("hero") !== null && Object.keys(JSON.parse(localStorage.getItem("hero"))).length !== 0) {
             setHero(JSON.parse(localStorage.getItem("hero")))
-            console.log('no call data');
+            // console.log('no call data');
         } else {
             callHeroList({ hero, setHero, eventsid: 314 })
-            console.log('call data');
+            // console.log('call data');
         }
         // callEventList({ events, setEvents })
         // callComicList({ comics, setComics })
@@ -46,9 +43,9 @@ const Homepage = () => {
     }, [])
 
     useEffect(() => {
-        console.log('events', events);
-        console.log('hero', hero);
-        console.log('comics', comics);
+        // console.log('events', events);
+        // console.log('hero', hero);
+        // console.log('comics', comics);
         // localStorage.setItem("events", JSON.stringify(events));
         if (localStorage.getItem("events") === null || Object.keys(JSON.parse(localStorage.getItem("events"))).length === 0) {
             localStorage.setItem("events", JSON.stringify(events));
@@ -64,7 +61,6 @@ const Homepage = () => {
 
     return (
         <div className=' max-w-[1400px] mx-auto'>
-            <NavbarWeb />
             <div className=' text-white flex justify-start '>
                 <h1 className='p-5 text-[0.6em] sm:text-[1em] xl:text-[1.5em]'>Events</h1>
             </div>

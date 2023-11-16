@@ -287,3 +287,7 @@ export const callHeroListAdd = async (props) => {
 }
 
 
+export const callSearchData = async (props) => {
+
+
+}

@@ -1,61 +1,66 @@
-import React, { useEffect, useState } from 'react'
-
-import { NavbarWeb } from '../../Component/Navbar/navbar'
-import { CardList } from '../../Component/Cardlist/CardList'
-import { callHeroList } from '../../Service/datacall'
-
-const CharacterListpage = () => {
-    const [hero, setHero] = useState({})
-    const limit = 20
-    const offset = 0
-    // console.log(events.data);
-
-    useEffect(() => {
-        console.log(window);
-        // console.log('window location', window.scrollY + window.innerHeight);
-        // console.log('document height', window.document.documentElement.scrollHeight);
-    })
-
-    useEffect(() => {
-        console.log('test');
-
-    }, [window.scrollY])
+import React from "react";
+import {
+    BrowserRouter as Router,
+    Link,
+    useLocation
+} from "react-router-dom";
 
 
-    // useEffect(() => {
-    //     callHeroList({ hero, setHero, limit, offset })
-    // }, [])
-
-    useEffect(() => {
-        if (localStorage.getItem(`heroList`) !== null && Object.keys(JSON.parse(localStorage.getItem(`heroList`))).length !== 0) {
-            const dataInID = (JSON.parse(localStorage.getItem(`heroList`)))
-            setHero(dataInID)
-        } else {
-            callHeroList({ hero, setHero, limit, offset })
-        }
-        // callHeroList({ hero, setHero, limit, offset })
-    }, [])
-
-    useEffect(() => {
-        if ((localStorage.getItem(`heroList`) === null || Object.keys(JSON.parse(localStorage.getItem(`heroList`))).length === 0) && hero) {
-            localStorage.setItem(`heroList`, JSON.stringify(hero));
-        }
-    }, [hero])
-
+export default function QueryParamsExample() {
     return (
-        <div className=' max-w-[1400px] mx-auto'>
-            <NavbarWeb />
-            <div className=' text-white flex justify-start '>
-                <h1 className='p-5 text-[0.6em] sm:text-[1em] xl:text-[1.5em]'>Character</h1>
-            </div>
-            <div>
-                {hero.data && <CardList item={hero.data} type='characters' />}
-            </div>
-
-
-        </div >
-
-    )
+        <Router>
+            <QueryParamsDemo />
+        </Router>
+    );
 }
 
-export default CharacterListpage
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
+function QueryParamsDemo() {
+    let query = useQuery();
+
+    return (
+        <div>
+            <div>
+                <h2>Accounts</h2>
+                <ul>
+                    <li>
+                        <Link to="/account?name=netflix">Netflix</Link>
+                    </li>
+                    <li>
+                        <Link to="/account?name=zillow-group">Zillow Group</Link>
+                    </li>
+                    <li>
+                        <Link to="/account?name=yahoo">Yahoo</Link>
+                    </li>
+                    <li>
+                        <Link to="/account?name=modus-create">Modus Create</Link>
+                    </li>
+                </ul>
+
+                <Child name={query.get("name")} />
+            </div>
+        </div>
+    );
+}
+
+function Child({ name }) {
+    return (
+        <div>
+            {name ? (
+                <h3>
+                    The <code>name</code> in the query string is &quot;{name}
+                    &quot;
+                </h3>
+            ) : (
+                <h3>There is no name in the query string</h3>
+            )}
+        </div>
+    );
+}

@@ -1,13 +1,13 @@
-import { MD5 } from 'crypto-js'
 import axios from 'axios'
 import { privatekey, publickey } from '../../utility/token';
+import md5 from 'md5';
 
 
 export const getHeroList = {
     getHero: async (limit = 20, offset = 0, eventsid) => {
         var ts = new Date().getTime();
         var stringToHash = ts + privatekey + publickey;
-        var hash = MD5(stringToHash);
+        var hash = md5(stringToHash);
         // console.log("eventsid", eventsid);
         const parameter = (eventsid === null) ? {
             params: {

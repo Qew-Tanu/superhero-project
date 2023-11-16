@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { NavbarWeb } from "../../Component/Navbar/navbar";
+import { NavbarWeb } from "../../Components/NavBar/navbar";
 import { callDetail } from "../../Service/datacall";
-import { Swiper, SwiperSlide } from 'swiper/react';
 import ReactLoading from "react-loading";
-import { FreeMode, Pagination } from 'swiper/modules';
-import { Smallswiper } from "../../Component/smallswiper/smallswiper";
+import { Smallswiper } from "../../Components/smallswiper/smallswiper";
 
 
 
@@ -17,16 +15,22 @@ import 'swiper/css/pagination';
 
 
 
-
-
 const Detail = () => {
+
+    const queryParameters = new URLSearchParams(window.location.search)
+    const type = queryParameters.get("type")
+    const id = queryParameters.get("id")
+    console.log(type);
+    console.log(id);
     // const { id } = useParams()
-    const { typeid } = useParams()
-    // console.log(typeid);
-    const test = typeid.split('-')
+    // const { type, id } = useParams()
+    // console.log(type);
+    // console.log(id);
+    const information = `${type}-${id}`
+
     // console.log(test);
-    const type = test[0]
-    const id = test[1]
+    // const type = test[0]
+    // const id = test[1]
 
     const [detail, setDetail] = useState({})
     const [comics, setComics] = useState()
@@ -37,8 +41,8 @@ const Detail = () => {
 
     useEffect(() => {
         // console.log((localStorage.getItem(`${typeid}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length !== 0));
-        if (localStorage.getItem(`${typeid}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length !== 0) {
-            const dataInID = (JSON.parse(localStorage.getItem(`${typeid}`)))
+        if (localStorage.getItem(`${information}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${information}`))).length !== 0) {
+            const dataInID = (JSON.parse(localStorage.getItem(`${information}`)))
             setDatatest(dataInID)
         } else {
             callDetail({ detail, setDetail, hero, setHero, comics, setComics, events, setEvents, datatest, setDatatest, type, id })
@@ -51,7 +55,7 @@ const Detail = () => {
         // console.log("hero", hero);
         // console.log("comics", comics);
         // console.log("detail", detail);
-        console.log('datatest', datatest);
+        // console.log('datatest', datatest);
         if (datatest) {
             setDetail(datatest.detail)
             setComics(datatest.comics)
@@ -59,13 +63,13 @@ const Detail = () => {
             setEvents(datatest.events)
         }
 
-        if ((localStorage.getItem(`${typeid}`) === null || Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length === 0) && datatest) {
-            localStorage.setItem(`${typeid}`, JSON.stringify(datatest));
+        if ((localStorage.getItem(`${information}`) === null || Object.keys(JSON.parse(localStorage.getItem(`${information}`))).length === 0) && datatest) {
+            localStorage.setItem(`${information}`, JSON.stringify(datatest));
         }
         // localStorage.setItem(`${typeid}`, JSON.stringify(datatest));
 
         // }
-        console.log(Boolean(datatest))
+        // console.log(Boolean(datatest))
 
     }, [datatest])
 
@@ -75,7 +79,6 @@ const Detail = () => {
 
     return (
         <div className=' max-w-[1400px] mx-auto'>
-            <NavbarWeb />
             <div className="flex justify-center">
                 <div className="flex flex-col justify-center bg-[#b4b4b4] rounded-[30px] p-5 w-[80%] gap-10">
                     {!(datatest) && (<div className="h-[300px] sm:h-[600px] flex justify-center items-center">
