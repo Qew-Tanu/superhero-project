@@ -1,14 +1,15 @@
-import { MD5 } from 'crypto-js'
 import axios from 'axios'
-import { hash, publickey } from '../../utility/token';
+import { privatekey, publickey } from '../utility/token';
+import md5 from 'md5';
 
+export const getDetail = {
+    getDetail: async (type, id) => {
 
-
-
-export const getComicDetail = {
-    getComic: async (id) => {
         var ts = new Date().getTime();
-        var url = `http://gateway.marvel.com/v1/public/series/${id}/characters`;
+        var stringToHash = ts + privatekey + publickey;
+        var hash = md5(stringToHash);
+
+        var url = `http://gateway.marvel.com/v1/public/${type}/${id}`;
         try {
             const response = await axios.get(url, {
                 params: {

@@ -1,12 +1,13 @@
 import { getComicList } from './comic/comicListService';
-import { getDetail } from './events/eventDetailservice';
+import { getDetail } from './Detailservice';
 import { getEventList } from './events/eventListService'
 import { getHeroList } from './hero/heroListService';
+import { SearchListService } from './search/SearchListService';
+
 
 
 
 export const callEventList = async (props) => {
-    // console.log(props);
     const test = ((props.limit)) ? await getEventList.getEvent(props.limit, props.offset = 0) : await getEventList.getEvent()
 
     props.setEvents({
@@ -15,7 +16,6 @@ export const callEventList = async (props) => {
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setEvents({
             data: test.data.data.results,
             loading: true,
@@ -42,7 +42,6 @@ export const callComicList = async (props) => {
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setComics({
             data: test.data.data.results,
             loading: true,
@@ -59,20 +58,15 @@ export const callComicList = async (props) => {
 }
 
 export const callHeroList = async (props) => {
-    // console.log("props", props);
-    // console.log("props222", props.eventsid);
 
-    // console.log((props.limit || props.eventsid));
     const test = (props.eventsid) ? await getHeroList.getHero(props.limit = 20, props.offset = 0, props.eventsid) :
         (props.limit) ? await getHeroList.getHero(props.limit, props.offset = 0, props.eventsid = null) : await getHeroList.getHero()
-    // console.log("test", test);
     props.setHero({
         data: [],
         loading: true,
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setHero({
             data: test.data.data.results,
             loading: true,
@@ -89,9 +83,7 @@ export const callHeroList = async (props) => {
 }
 
 export const callDetail = async (props) => {
-    console.log(props);
     const test = await getDetail.getDetail(props.type, props.id)
-    // console.log(test);
     var detail = ({
         data: null,
         loading: true,
@@ -112,7 +104,6 @@ export const callDetail = async (props) => {
         }
         )
     }
-    // console.log(datatest);
     //call character if type = event of comic
     if (test.data && props.type !== 'characters') {
         const characters = test.data.data.results[0].characters.items.length > 0 ? test.data.data.results[0].characters.items : []
@@ -135,7 +126,6 @@ export const callDetail = async (props) => {
         var test2 = characterListDetail.map((item) => {
             return item.data.data.results[0]
         })
-        // console.log('test2', test2);
         // props.setDatatest({ ...props.datatest, 'characters': test2 })
     }
     if (test.data && props.type !== 'comics') {
@@ -205,7 +195,6 @@ export const callDetail = async (props) => {
 
 
 export const callEventListadd = async (props) => {
-    // console.log(props);
     const test = ((props.limit)) ? await getEventList.getEvent(props.limit, props.offset) : await getEventList.getEvent()
 
     props.setDataadd({
@@ -214,7 +203,6 @@ export const callEventListadd = async (props) => {
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setDataadd({
             data: test.data.data.results,
             loading: true,
@@ -240,7 +228,6 @@ export const callComicListAdd = async (props) => {
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setDataadd({
             data: test.data.data.results,
             loading: true,
@@ -257,20 +244,15 @@ export const callComicListAdd = async (props) => {
 }
 
 export const callHeroListAdd = async (props) => {
-    // console.log("props", props);
-    // console.log("props222", props.eventsid);
 
-    // console.log((props.limit || props.eventsid));
     const test = (props.eventsid) ? await getHeroList.getHero(props.limit, props.offset, props.eventsid) :
         (props.limit) ? await getHeroList.getHero(props.limit, props.offset, props.eventsid = null) : await getHeroList.getHero()
-    // console.log("test", test);
     props.setDataadd({
         data: [],
         loading: true,
         error: null
     })
     if (test.status === 200) {
-        // console.log(test);
         props.setDataadd({
             data: test.data.data.results,
             loading: true,
@@ -288,6 +270,28 @@ export const callHeroListAdd = async (props) => {
 
 
 export const callSearchData = async (props) => {
+    const test = (props.type === "events") ? await SearchListService.getEvent(props.limit, props.offset, props.name) : (props.type === "comics") ? await SearchListService.getComic(props.limit, props.offset, props.name) : await SearchListService.getHero(props.limit, props.offset, props.name)
 
+    props.setDataadd({
+        data: [],
+        total: 0,
+        loading: true,
+        error: null
+    })
+    if (test.status === 200) {
+        props.setDataadd({
+            data: test.data.data.results,
+            total: test.data.data.total,
+            loading: true,
+            error: null
+        })
+    } else {
+        props.setDataadd({
+            data: [],
+            total: 0,
+            loading: true,
+            error: test
+        })
+    }
 
 }

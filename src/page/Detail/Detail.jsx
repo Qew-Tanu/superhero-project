@@ -20,15 +20,10 @@ const Detail = () => {
     const queryParameters = new URLSearchParams(window.location.search)
     const type = queryParameters.get("type")
     const id = queryParameters.get("id")
-    console.log(type);
-    console.log(id);
     // const { id } = useParams()
     // const { type, id } = useParams()
-    // console.log(type);
-    // console.log(id);
     const information = `${type}-${id}`
 
-    // console.log(test);
     // const type = test[0]
     // const id = test[1]
 
@@ -40,7 +35,6 @@ const Detail = () => {
 
 
     useEffect(() => {
-        // console.log((localStorage.getItem(`${typeid}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${typeid}`))).length !== 0));
         if (localStorage.getItem(`${information}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${information}`))).length !== 0) {
             const dataInID = (JSON.parse(localStorage.getItem(`${information}`)))
             setDatatest(dataInID)
@@ -51,11 +45,6 @@ const Detail = () => {
 
 
     useEffect(() => {
-        // console.log("events", events);
-        // console.log("hero", hero);
-        // console.log("comics", comics);
-        // console.log("detail", detail);
-        // console.log('datatest', datatest);
         if (datatest) {
             setDetail(datatest.detail)
             setComics(datatest.comics)
@@ -69,7 +58,6 @@ const Detail = () => {
         // localStorage.setItem(`${typeid}`, JSON.stringify(datatest));
 
         // }
-        // console.log(Boolean(datatest))
 
     }, [datatest])
 

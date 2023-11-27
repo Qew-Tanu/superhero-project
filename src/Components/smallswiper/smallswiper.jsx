@@ -15,7 +15,6 @@ import { FreeMode, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
 export const Smallswiper = (props) => {
-    console.log(props.item);
     return (
         <div className='h-[200px] lg:h-[300px]'>
             <div className='h-[100%] p-[10px] w-full'>

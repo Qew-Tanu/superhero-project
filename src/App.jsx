@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route, Link, } from "react-router-dom";
 import Homepage from './page/home';
@@ -9,8 +8,7 @@ import Detail from './page/Detail/Detail';
 import { NavbarWeb } from './Components/NavBar/navbar';
 import { ParameterSearch } from './Components/usecontext/parametersearch';
 import Search from './page/search/Search';
-import testpage from './page/testpage';
-import Testpage from './page/testpage';
+
 
 
 

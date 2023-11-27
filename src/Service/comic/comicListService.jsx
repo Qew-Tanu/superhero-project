@@ -22,7 +22,6 @@ export const getComicList = {
                     // "modifiedSince": date
                 }
             })
-            console.log(response);
             return (response)
         } catch (error) {
             return (error)
