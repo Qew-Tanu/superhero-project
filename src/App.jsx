@@ -14,7 +14,7 @@ import Search from './page/search/Search';
 function App() {
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ParameterSearch >
         <NavbarWeb />
         <Routes>
@@ -26,7 +26,7 @@ function App() {
           <Route path="/search" element={<Search />} />
         </Routes>
       </ParameterSearch>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
