@@ -15,7 +15,7 @@ const EventsListpage = () => {
 
   const [scrollTop, setScrollTop] = useState(0);
   const [adddata, setAdddata] = useState(false)
-  const [dataAdd, setDataadd] = useState({})
+  const [dataAdd, setDataAdd] = useState({})
 
   useEffect(() => {
     if (adddata === true && offset !== 0) {
@@ -25,9 +25,9 @@ const EventsListpage = () => {
         adding.data = adding.data.filter((item, index) => {
           return (index < (offset + limit) && index >= offset)
         })
-        setDataadd(adding)
+        setDataAdd(adding)
       } else {
-        callEventListadd({ dataAdd, setDataadd, limit, offset })
+        callEventListadd({ dataAdd, setDataAdd, limit, offset })
       }
     }
   }, [adddata])
@@ -38,11 +38,8 @@ const EventsListpage = () => {
         setAdddata(true)
         setOffset((prev) => prev + 20)
       }
-
     }
-
-
-  })
+  }, [scrollTop])
 
 
 
@@ -50,7 +47,7 @@ const EventsListpage = () => {
     if (dataAdd.data) {
       setEvents((prev) => ({ ...prev, ['data']: [...prev.data, ...dataAdd.data] }))
       setAdddata(false)
-      setDataadd({})
+      setDataAdd({})
     }
   }, [dataAdd])
 

@@ -14,17 +14,18 @@ const Search = (props) => {
     const limit = 20
     // var offset = 0
     const [offset, setOffset] = useState(0)
-    const [dataAdd, setDataadd] = useState({})
+    const [dataAdd, setDataAdd] = useState({})
     const [loadmore, setLoadmore] = useState(true)
 
     const fetchMoreData = () => {
         setOffset((prev) => prev + limit)
-        callSearchData({ dataAdd, setDataadd, limit, offset: offset + 20, type, name })
+        callSearchData({ dataAdd, setDataAdd, limit, offset: offset + 20, type, name })
     };
 
 
     useEffect(() => {
-        callSearchData({ dataAdd, setDataadd, limit, offset, type, name })
+        // check dataAdd
+        callSearchData({ dataAdd, setDataAdd, limit, offset, type, name })
     }, [])
 
     useEffect(() => {
@@ -37,8 +38,6 @@ const Search = (props) => {
             } else {
                 setDataSearch(dataAdd)
             }
-
-
         }
     }, [dataAdd])
 
@@ -68,7 +67,7 @@ const Search = (props) => {
                         <h1 className='p-5 text-[0.6em] sm:text-[1em] xl:text-[1.5em]'>search {type} that include word : {name}</h1>
                     </div>
                     <div>
-                        {dataSearch.data && <CardList item={dataSearch.data} type={type} />}
+                        {dataSearch.data && <CardList item={dataSearch?.data} type={type} />}
                     </div>
                 </InfiniteScroll>}
             {!(dataSearch.data) &&

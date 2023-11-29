@@ -19,7 +19,7 @@ function App() {
       <ParameterSearch >
         <NavbarWeb />
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" exact element={<Homepage />} />
           <Route path="/events" element={<EventsListpage />} />
           <Route path="/comics" element={<ComicsListpage />} />
           <Route path="/characters" element={<CharacterListpage />} />

@@ -9,7 +9,7 @@ const ComicsListpage = () => {
 
     const [scrollTop, setScrollTop] = useState(0);
     const [adddata, setAdddata] = useState(false)
-    const [dataAdd, setDataadd] = useState({})
+    const [dataAdd, setDataAdd] = useState({})
 
     useEffect(() => {
         if (adddata === true && offset !== 0) {
@@ -17,9 +17,9 @@ const ComicsListpage = () => {
             if (JSON.parse(localStorage.getItem(`comicsList`)).data.length > (offset + limit)) {
                 var adding = (JSON.parse(localStorage.getItem(`comicsList`)))
                 adding.data = adding.data.filter((item, index) => index < (offset + limit) && index >= offset)
-                setDataadd(adding)
+                setDataAdd(adding)
             } else {
-                callComicListAdd({ dataAdd, setDataadd, limit, offset })
+                callComicListAdd({ dataAdd, setDataAdd, limit, offset })
             }
         }
     }, [adddata])
@@ -43,7 +43,7 @@ const ComicsListpage = () => {
         if (dataAdd.data) {
             setComics((prev) => ({ ...prev, ['data']: [...prev.data, ...dataAdd.data] }))
             setAdddata(false)
-            setDataadd({})
+            setDataAdd({})
         }
     }, [dataAdd])
 

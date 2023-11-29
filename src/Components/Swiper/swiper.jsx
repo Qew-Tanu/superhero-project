@@ -21,10 +21,12 @@ export const SwiperItem = (props) => {
         <div className='h-[300px] lg:h-[400px]'>
             <div className='h-[100%] p-[10px]'>
                 <Swiper
+                    // slidesPerView={2}
                     width='200'
                     breakpoints={{
                         1024: {
                             width: '300',
+                            // slidesPerView: 1,
                         },
                     }}
                     spaceBetween='10'
@@ -58,7 +60,3 @@ export const SwiperItem = (props) => {
     )
 }
 
-
-//max-h-[120px] sm:max-h-[200px] w-auto
-
-//h-[100%] sm:h-[90%]
