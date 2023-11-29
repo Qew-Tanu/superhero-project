@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Link, } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, HashRouter, } from "react-router-dom";
 import Homepage from './page/home';
 import EventsListpage from './page/event';
 import ComicsListpage from './page/comic/comic';
@@ -11,11 +11,10 @@ import Search from './page/search/Search';
 
 
 
-
 function App() {
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ParameterSearch >
         <NavbarWeb />
         <Routes>
@@ -27,7 +26,7 @@ function App() {
           <Route path="/search" element={<Search />} />
         </Routes>
       </ParameterSearch>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
