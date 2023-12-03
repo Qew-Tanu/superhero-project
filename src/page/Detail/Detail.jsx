@@ -69,7 +69,7 @@ const Detail = () => {
         <div className=' max-w-[1400px] mx-auto'>
             <div className="flex justify-center">
                 <div className="flex flex-col justify-center bg-[#b4b4b4] rounded-[30px] p-5 w-[80%] gap-10">
-                    {!(datatest) && (<div className="h-[300px] sm:h-[600px] flex justify-center items-center">
+                    {!(datatest) && (<div className="h-[300px] sm:h-[600px] flex justify-center items-center ">
                         <ReactLoading type="spinningBubbles" color="#fff" height={'30%'} width={'30%'} />
                     </div>
                     )}
@@ -77,7 +77,7 @@ const Detail = () => {
                         <div className="flex justify-center">
                             <img src={`${detail.data.thumbnail.path}.${detail.data.thumbnail.extension}`} alt="" />
                         </div>
-                        <div className="text-[0.6em] sm:text-[1em] xl:text-[1.5em]">
+                        <div className="text-[0.6em] sm:text-[1em] xl:text-[1.5em] text-center font-bold underline">
                             {detail.data.title}
                         </div>
                         <div className="text-[0.5em] sm:text-[0.9em] xl:text-[1.3em]">

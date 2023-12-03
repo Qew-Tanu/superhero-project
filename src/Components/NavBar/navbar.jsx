@@ -21,7 +21,7 @@ export const NavbarWeb = () => {
         <div className='flex flex-col items-center py-[5px]'>
             <img className=' w-[30%] items-center mx-[auto]' src="./image/Marvel_Logo.png" alt="" />
             <nav className=' flex justify-evenly text-white h-[40px] sm:h-[60px] text-[0.6em] p-1 sm:text-[1em] lg:h-[6vw] xl:h-[100px] items-center bg-gray-500 w-[80%] rounded-[50px] border my-[10px] xl:text-[1.5em] '>
-                <NavLink to='/' exact
+                <NavLink to='/' exact="true"
                     className={({ isActive }) =>
                         isActive ? " bg-[#3d3d3d] h-[100%] flex justify-center align-middle items-center hover:bg-black rounded-full py-1 sm:px-5 w-[100%] group" : "h-[100%] flex justify-center align-middle items-center hover:bg-black rounded-full py-1 sm:px-5 w-[100%] group"
                     }

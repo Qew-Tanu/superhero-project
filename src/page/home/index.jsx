@@ -43,7 +43,7 @@ const Homepage = () => {
     }, [])
 
     useEffect(() => {
-        // console.log('events', events);
+        console.log('events', events);
         // console.log('hero', hero);
         // console.log('comics', comics);
         // localStorage.setItem("events", JSON.stringify(events));
