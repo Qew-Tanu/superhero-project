@@ -12,12 +12,14 @@ export const callEventList = async (props) => {
 
     props.setEvents({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setEvents({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
@@ -26,6 +28,7 @@ export const callEventList = async (props) => {
         props.setEvents({
             data: [],
             loading: true,
+            total: 0,
             error: test
         })
         // return props.event
@@ -38,18 +41,21 @@ export const callComicList = async (props) => {
     const test = props.limit ? await getComicList.getComic(props.limit, props.offset = 0) : await getComicList.getComic()
     props.setComics({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setComics({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
     } else {
         props.setComics({
             data: [],
+            total: 0,
             loading: true,
             error: test
         })
@@ -63,18 +69,21 @@ export const callHeroList = async (props) => {
         (props.limit) ? await getHeroList.getHero(props.limit, props.offset = 0, props.eventsid = null) : await getHeroList.getHero()
     props.setHero({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setHero({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
     } else {
         props.setHero({
             data: [],
+            total: 0,
             loading: true,
             error: test
         })
@@ -199,12 +208,14 @@ export const callEventListadd = async (props) => {
 
     props.setDataAdd({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setDataAdd({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
@@ -212,6 +223,7 @@ export const callEventListadd = async (props) => {
     } else {
         props.setDataAdd({
             data: [],
+            total: 0,
             loading: true,
             error: test
         })
@@ -224,18 +236,21 @@ export const callComicListAdd = async (props) => {
     const test = props.limit ? await getComicList.getComic(props.limit, props.offset) : await getComicList.getComic()
     props.setDataAdd({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setDataAdd({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
     } else {
         props.setDataAdd({
             data: [],
+            total: 0,
             loading: true,
             error: test
         })
@@ -249,18 +264,21 @@ export const callHeroListAdd = async (props) => {
         (props.limit) ? await getHeroList.getHero(props.limit, props.offset, props.eventsid = null) : await getHeroList.getHero()
     props.setDataAdd({
         data: [],
+        total: 0,
         loading: true,
         error: null
     })
     if (test.status === 200) {
         props.setDataAdd({
             data: test.data.data.results,
+            total: test.data.data.total,
             loading: true,
             error: null
         })
     } else {
         props.setDataAdd({
             data: [],
+            total: 0,
             loading: true,
             error: test
         })

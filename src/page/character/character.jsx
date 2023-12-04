@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
-import { NavbarWeb } from '../../Components/NavBar/navbar'
 import { CardList } from '../../Components/Cardlist/CardList'
 import { callHeroList, callHeroListAdd } from '../../Service/datacall'
 
@@ -8,6 +6,7 @@ const CharacterListpage = () => {
     const [hero, setHero] = useState({})
     const limit = 20
     const [offset, setOffset] = useState(0)
+    const [total, setTotal] = useState()
 
     const [scrollTop, setScrollTop] = useState(0);
     const [adddata, setAdddata] = useState(false)
@@ -15,7 +14,6 @@ const CharacterListpage = () => {
 
     useEffect(() => {
         if (adddata === true && offset !== 0) {
-            // check localstorage data
             if (JSON.parse(localStorage.getItem(`heroList`)).data.length > (offset + limit)) {
                 var adding = (JSON.parse(localStorage.getItem(`heroList`)))
                 adding.data = adding.data.filter((item, index) => index < (offset + limit) && index >= offset)
@@ -27,28 +25,21 @@ const CharacterListpage = () => {
     }, [adddata])
 
     useEffect(() => {
+        if (((window.scrollY + window.innerHeight) > (window.document.documentElement.scrollHeight - 100)) && hero.data) {
+            if (adddata === false && (hero.data.length < total)) {
+                setAdddata(true)
+                setOffset((prev) => prev + 20)
+            }
+        }
+    }, [scrollTop, hero.data, total])
+
+    useEffect(() => {
         if (dataAdd.data) {
             setHero((prev) => ({ ...prev, ['data']: [...prev.data, ...dataAdd.data] }))
             setAdddata(false)
             setDataAdd({})
         }
     }, [dataAdd])
-
-    useEffect(() => {
-        if (((window.scrollY + window.innerHeight) > (window.document.documentElement.scrollHeight - 100)) && hero.data) {
-            if (adddata === false) {
-                setAdddata(true)
-                setOffset((prev) => prev + 20)
-            }
-        }
-
-
-    })
-
-
-    // useEffect(() => {
-    //     callHeroList({ hero, setHero, limit, offset })
-    // }, [])
 
     useEffect(() => {
         if (localStorage.getItem(`heroList`) !== null && Object.keys(JSON.parse(localStorage.getItem(`heroList`))).length !== 0) {
@@ -70,17 +61,6 @@ const CharacterListpage = () => {
             window.removeEventListener('scroll', handleScroll);
         };
 
-
-
-        // if (localStorage.getItem(`heroList`) !== null && Object.keys(JSON.parse(localStorage.getItem(`heroList`))).length !== 0) {
-        //     const dataInID = (JSON.parse(localStorage.getItem(`heroList`)))
-        //     setHero(dataInID)
-        // } else {
-        //     callHeroList({ hero, setHero, limit, offset })
-        // }
-
-
-        // callHeroList({ hero, setHero, limit, offset })
     }, [])
 
     useEffect(() => {
@@ -92,12 +72,8 @@ const CharacterListpage = () => {
                 localStorage.setItem(`heroList`, JSON.stringify(hero));
             }
         }
+        setTotal(hero.total)
 
-
-
-        // if ((localStorage.getItem(`heroList`) === null || Object.keys(JSON.parse(localStorage.getItem(`heroList`))).length === 0) && hero) {
-        //     localStorage.setItem(`heroList`, JSON.stringify(hero));
-        // }
     }, [hero])
 
     return (

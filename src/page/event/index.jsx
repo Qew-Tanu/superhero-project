@@ -11,6 +11,7 @@ const EventsListpage = () => {
   // ##############################################################################################################################################################################
   const [events, setEvents] = useState({})
   const [offset, setOffset] = useState(0)
+  const [total, setTotal] = useState()
   const limit = 20
 
   const [scrollTop, setScrollTop] = useState(0);
@@ -33,13 +34,13 @@ const EventsListpage = () => {
   }, [adddata])
 
   useEffect(() => {
-    if (((window.scrollY + window.innerHeight) > (window.document.documentElement.scrollHeight - 100)) && events.data) {
-      if (adddata === false) {
+    if (((window.scrollY + window.innerHeight) >= (window.document.documentElement.scrollHeight - 100)) && events.data) {
+      if (adddata === false && (events.data.length < total)) {
         setAdddata(true)
         setOffset((prev) => prev + 20)
       }
     }
-  }, [scrollTop])
+  }, [scrollTop, events.data, total])
 
 
 
@@ -61,6 +62,7 @@ const EventsListpage = () => {
       callEventList({ events, setEvents, limit, offset })
     }
 
+
     const handleScroll = event => {
       setScrollTop(window.scrollY);
     };
@@ -70,7 +72,7 @@ const EventsListpage = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-    // callComicList({ events, setEvents, limit, offset })
+
   }, [])
 
   useEffect(() => {
@@ -83,6 +85,7 @@ const EventsListpage = () => {
       }
     }
 
+    setTotal(events.total)
   }, [events])
 
   // ####################################################################################################################################################################################

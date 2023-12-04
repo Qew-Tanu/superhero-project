@@ -6,7 +6,8 @@ import { callSearchData } from '../../Service/datacall';
 
 
 const Search = (props) => {
-    const queryParameters = new URLSearchParams(window.location.search)
+
+    const [queryParameters] = useSearchParams();
     const type = queryParameters.get("searchby")
     const name = queryParameters.get("keyword")
 

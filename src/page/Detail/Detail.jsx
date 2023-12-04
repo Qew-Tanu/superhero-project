@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { NavbarWeb } from "../../Components/NavBar/navbar";
 import { callDetail } from "../../Service/datacall";
 import ReactLoading from "react-loading";
@@ -16,8 +16,7 @@ import 'swiper/css/pagination';
 
 
 const Detail = () => {
-
-    const queryParameters = new URLSearchParams(window.location.search)
+    const [queryParameters] = useSearchParams();
     const type = queryParameters.get("type")
     const id = queryParameters.get("id")
     // const { id } = useParams()
@@ -35,8 +34,9 @@ const Detail = () => {
 
 
     useEffect(() => {
-        if (localStorage.getItem(`${information}`) !== null && Object.keys(JSON.parse(localStorage.getItem(`${information}`))).length !== 0) {
-            const dataInID = (JSON.parse(localStorage.getItem(`${information}`)))
+        const ls_information = localStorage.getItem(`${information}`)
+        if (ls_information !== null && Object.keys(JSON.parse(ls_information)).length !== 0) {
+            const dataInID = (JSON.parse(ls_information))
             setDatatest(dataInID)
         } else {
             callDetail({ detail, setDetail, hero, setHero, comics, setComics, events, setEvents, datatest, setDatatest, type, id })
@@ -51,8 +51,8 @@ const Detail = () => {
             setHero(datatest.hero)
             setEvents(datatest.events)
         }
-
-        if ((localStorage.getItem(`${information}`) === null || Object.keys(JSON.parse(localStorage.getItem(`${information}`))).length === 0) && datatest) {
+        const ls_information = localStorage.getItem(`${information}`)
+        if ((ls_information === null || Object.keys(JSON.parse(ls_information)).length === 0) && datatest) {
             localStorage.setItem(`${information}`, JSON.stringify(datatest));
         }
         // localStorage.setItem(`${typeid}`, JSON.stringify(datatest));

@@ -2,6 +2,7 @@ import plugin from 'tailwindcss'
 
 /** @type {import('tailwindcss').Config} */
 
+const secondEffect = 0.5;
 
 export default {
   content: [
@@ -12,8 +13,8 @@ export default {
     extend: {
       animation: {
         blink: 'blink 5s ease-in-out infinite',
-        flip: 'flip 1s linear 1 forwards',
-        show: 'show 1s linear 1 forwards'
+        flip: `flip ${secondEffect}s linear 1 forwards`,
+        show: `show ${secondEffect}s linear 1 forwards`
       },
       keyframes: {
         blink: {

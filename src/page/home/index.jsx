@@ -13,24 +13,28 @@ const Homepage = () => {
     useEffect(() => {
         // var itemTest = JSON.parse(localStorage.getItem("events"));
         // console.log(localStorage.getItem("comics") !== null);
+        const ls_events = localStorage.getItem("events")
+        const ls_hero = localStorage.getItem("hero")
+        const ls_comics = localStorage.getItem("comics")
 
-        if (localStorage.getItem("events") !== null && Object.keys(JSON.parse(localStorage.getItem("events"))).length !== 0) {
-            setEvents(JSON.parse(localStorage.getItem("events")))
+        if (ls_events !== null && Object.keys(JSON.parse(ls_events)).length !== 0) {
+            setEvents(JSON.parse(ls_events))
             // console.log('no call data');
         } else {
             callEventList({ events, setEvents })
             // console.log('call data');
         }
         // callEventList({ events, setEvents })
-        if (localStorage.getItem("comics") !== null && Object.keys(JSON.parse(localStorage.getItem("comics"))).length !== 0) {
-            setComics(JSON.parse(localStorage.getItem("comics")))
+        if (ls_comics !== null && Object.keys(JSON.parse(ls_comics)).length !== 0) {
+            setComics(JSON.parse(ls_comics))
             // console.log('no call data');
         } else {
             callComicList({ comics, setComics })
             // console.log('call data');
         }
-        if (localStorage.getItem("hero") !== null && Object.keys(JSON.parse(localStorage.getItem("hero"))).length !== 0) {
-            setHero(JSON.parse(localStorage.getItem("hero")))
+
+        if (ls_hero !== null && Object.keys(JSON.parse(ls_hero)).length !== 0) {
+            setHero(JSON.parse(ls_hero))
             // console.log('no call data');
         } else {
             callHeroList({ hero, setHero, eventsid: 314 })
@@ -43,17 +47,20 @@ const Homepage = () => {
     }, [])
 
     useEffect(() => {
-        console.log('events', events);
+        // console.log('events', events);
         // console.log('hero', hero);
         // console.log('comics', comics);
         // localStorage.setItem("events", JSON.stringify(events));
-        if (localStorage.getItem("events") === null || Object.keys(JSON.parse(localStorage.getItem("events"))).length === 0) {
+        const ls_events = localStorage.getItem("events")
+        const ls_hero = localStorage.getItem("hero")
+        const ls_comics = localStorage.getItem("comics")
+        if (ls_events === null || Object.keys(JSON.parse(ls_events)).length === 0) {
             localStorage.setItem("events", JSON.stringify(events));
         }
-        if (localStorage.getItem("comics") === null || Object.keys(JSON.parse(localStorage.getItem("comics"))).length === 0) {
+        if (ls_comics === null || Object.keys(JSON.parse(ls_comics)).length === 0) {
             localStorage.setItem("comics", JSON.stringify(comics));
         }
-        if (localStorage.getItem("hero") === null || Object.keys(JSON.parse(localStorage.getItem("hero"))).length === 0) {
+        if (ls_hero === null || Object.keys(JSON.parse(ls_hero)).length === 0) {
             localStorage.setItem("hero", JSON.stringify(hero));
         }
     }, [events, comics, hero])
