@@ -73,10 +73,12 @@ const ComicsListpage = () => {
             }
         }
         setTotal(comics.total)
-        if (comics.data) {
-            console.log(comics.data.filter((obj, index) => comics.data.findIndex((item) => item.id === obj.id) === index))
-        }
+
     }, [comics])
+
+
+
+
 
     return (
         <div className=' max-w-[1400px] mx-auto'>
